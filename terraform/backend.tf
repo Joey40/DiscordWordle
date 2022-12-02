@@ -6,6 +6,11 @@ terraform {
     }
   }
   backend "azurerm" {
+    config = {
+      storage_account_name = "jkrilovtfstate"
+      container_name       = "state"
+      key                  = "terraform.tfstate"
+    }
   }
 }
 
