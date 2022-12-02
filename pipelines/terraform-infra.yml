@@ -14,6 +14,8 @@ variables:
     value: 1.3.6
   - name: serviceConnection
     value: WordleBot
+  - name: outFile
+    value: $(System.StageName).$(Build.BuildNumber).tfplan
 
 stages:
   - stage: Plan
@@ -33,3 +35,12 @@ stages:
             scriptLocation: inlineScript
             inlineScript: |
               terraform init -input=false
+              
+         - task: AzureCLI@2
+           displayName: Terraform plan
+           inputs:
+            azureSubscription: ${{ variables.serviceConnection }}
+            scriptType: bash
+            scriptLocation: inlineScript
+            inlineScript: |
+              terraform plan -out "${{ variables.outFile }}"
