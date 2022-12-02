@@ -22,6 +22,8 @@ variables:
     value: WordleBot
   - name: webApp
     value: WordleBotApp
+  - name: buildOutput
+    value: $(System.DefaultWorkingDirectory)/buildOutput/Build-$(Build.BuildNumber).go
 
 steps: 
 - task: GoTool@0
@@ -41,7 +43,7 @@ steps:
   inputs:
     command: 'build'
     workingDirectory: '$(System.DefaultWorkingDirectory)/cmd/bot'
-    arguments: '-o "$(System.DefaultWorkingDirectory)/buildOutput"'
+    arguments: '-o "${{ variables.buildOutput }}"'
 
 - task: Go@0
   displayName: Go Test
@@ -73,4 +75,4 @@ steps:
     azureSubscription: ${{ variables.serviceConnection }}
     appType: 'webAppLinux'
     appName: ${{ variables.webApp }}
-    package: '$(Build.ArtifactStagingDirectory)'
+    package: ${{ variables.buildOutput }}
