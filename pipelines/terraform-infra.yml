@@ -25,5 +25,6 @@ stages:
 
          - task: AzureCLI@2
            displayName: Terraform init
-           inlineScript: |
-             terraform init -input=false
+           inputs:
+            inlineScript: |
+              terraform init -input=false
