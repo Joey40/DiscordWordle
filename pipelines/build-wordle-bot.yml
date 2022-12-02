@@ -1,5 +1,14 @@
-trigger: 
- - main
+trigger:
+  branches:
+    include:
+      - main
+  paths:
+    include:
+      - '*'
+      - 'pipelines/build-wordle-bot.yml/
+    exclude:
+      - 'pipelines/*'
+      - 'terraform/*'
 
 pool:
    vmImage: 'ubuntu-latest'
