@@ -20,9 +20,9 @@ variables:
     value: $(System.DefaultWorkingDirectory)/terraform
 
 stages:
-  - stage: Terraform Plan
+  - stage: Terraform_Plan
     jobs:
-      - job: Terraform Plan
+      - job: Terraform_Plan
         steps: 
 
            - task: AzureCLI@2
@@ -71,18 +71,18 @@ stages:
                ARM_CLIENT_SECRET:    $(ARM_CLIENT_SECRET)
                ARM_TENANT_ID:        $(ARM_TENANT_ID)
                
-  - stage: Manual Approval
+  - stage: Manual_Approval
     jobs:
-      - job: Manual Approval
+      - job: Manual_Approval
         steps: 
           - task: ManualIntervention@8
             inputs:
               instructions: "Review the terraform plan output before approving the apply stage."
               onTimeout: 'reject'
               
-  - stage: Terraform Apply
+  - stage: Terraform_Apply
     jobs:
-      - job: Terraform Apply
+      - job: Terraform_Apply
         steps: 
 
            - task: AzureCLI@2
