@@ -41,6 +41,7 @@ steps:
   inputs:
     command: 'build'
     workingDirectory: '$(System.DefaultWorkingDirectory)/cmd/bot'
+    arguments: '-o "$(System.DefaultWorkingDirectory)/buildOutput"'
 
 - task: Go@0
   displayName: Go Test
@@ -52,7 +53,7 @@ steps:
 
 - task: CopyFiles@2
   inputs:
-    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    TargetFolder: '$(System.DefaultWorkingDirectory)/cmd/bot'
     
 - task: PublishBuildArtifacts@1
   inputs:
@@ -61,7 +62,7 @@ steps:
 - task: Bash@3
   displayName: ls
   inputs:
-   workingDirectory: '$(Build.ArtifactStagingDirectory)'
+   workingDirectory: '$(System.DefaultWorkingDirectory)/buildOutput'
    targetType: 'inline'
    script: |
      ls
