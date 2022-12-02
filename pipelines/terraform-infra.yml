@@ -28,7 +28,7 @@ stages:
         steps: 
 
            - task: AzureCLI@2
-             displayName: az login
+             displayName: AZ Login
              inputs:
                azureSubscription: ${{ variables.serviceConnection }}
                scriptType: bash
@@ -48,7 +48,7 @@ stages:
                terraformVersion: ${{ variables.terraformVersion }}
 
            - task: Bash@3
-             displayName: Terraform init
+             displayName: Terraform Init
              inputs:
                workingDirectory: ${{ variables.terraformDir }}
                targetType: 'inline'
@@ -61,7 +61,7 @@ stages:
                ARM_TENANT_ID:        $(ARM_TENANT_ID)
 
            - task: Bash@3
-             displayName: Terraform plan
+             displayName: Terraform Plan
              inputs:
                workingDirectory: ${{ variables.terraformDir }}
                targetType: 'inline'
@@ -72,6 +72,12 @@ stages:
                ARM_CLIENT_ID:        $(ARM_CLIENT_ID)
                ARM_CLIENT_SECRET:    $(ARM_CLIENT_SECRET)
                ARM_TENANT_ID:        $(ARM_TENANT_ID)
+           
+           - task: PublishPipelineArtifact@1
+             displayName: Upload Plan File
+             inputs:
+               publishLocation: 'pipeline'
+               targetPath: ${{ variables.outFile }}
                
   - stage: Manual_Approval
     displayName: Manual Approval
@@ -108,9 +114,15 @@ stages:
                  echo "##vso[task.setvariable variable=ARM_CLIENT_SECRET;issecret=true]$servicePrincipalKey"
                  echo "##vso[task.setvariable variable=ARM_SUBSCRIPTION_ID]$subscriptionId"
                  echo "##vso[task.setvariable variable=ARM_TENANT_ID]$tenantId"
-                 
+           
+           - task: DownloadPipelineArtifact@2
+             displayName: Download Plan File
+             inputs:
+               buildType: 'current'
+               targetPath: ${{ variables.outFile }}
+           
            - task: Bash@3
-             displayName: Terraform plan
+             displayName: Terraform Apply
              inputs:
                workingDirectory: ${{ variables.terraformDir }}
                targetType: 'inline'
