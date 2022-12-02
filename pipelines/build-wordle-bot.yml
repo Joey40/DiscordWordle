@@ -78,19 +78,19 @@ steps:
    script: |
      ls
      
-- task: AzureRmWebAppDeployment@4
-  inputs:
-    ConnectionType: 'AzureRM' # 'AzureRM' | 'PublishProfile'. Required. Connection type. Default: AzureRM.
-    azureSubscription: ${{ variables.serviceConnection }}
-    appType: 'webAppLinux'
-    WebAppName: ${{ variables.webApp }}
-    RuntimeStack: "GO|1.19"
-    packageForLinux: ${{ variables.buildPackage }}
-    
-#- task: AzureWebApp@1
-#  displayName: Publish App
+#- task: AzureRmWebAppDeployment@4
 #  inputs:
+#    ConnectionType: 'AzureRM' # 'AzureRM' | 'PublishProfile'. Required. Connection type. Default: AzureRM.
 #    azureSubscription: ${{ variables.serviceConnection }}
 #    appType: 'webAppLinux'
-#    appName: ${{ variables.webApp }}
-#    package: ${{ variables.buildOutput }}
+#    WebAppName: ${{ variables.webApp }}
+#    RuntimeStack: "GO|1.19"
+#    packageForLinux: ${{ variables.buildPackage }}
+    
+- task: AzureWebApp@1
+  displayName: Publish App
+  inputs:
+    azureSubscription: ${{ variables.serviceConnection }}
+    appType: 'webAppLinux'
+    appName: ${{ variables.webApp }}
+    package: ${{ variables.buildPackage }}
