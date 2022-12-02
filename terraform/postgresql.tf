@@ -6,9 +6,9 @@ resource "azurerm_postgresql_server" "wordle-psql" {
   administrator_login          = "psqladmin"
   administrator_login_password = "invalidpwd"
 
-  sku_name   = "GP_Gen5_1"
+  sku_name   = "B_Gen5_1"
   version    = "11"
-  storage_mb = 1000
+  storage_mb = 5120
 
   backup_retention_days        = 7
   geo_redundant_backup_enabled = false
