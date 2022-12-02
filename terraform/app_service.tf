@@ -14,8 +14,5 @@ resource "azurerm_linux_web_app" "WordleBotApp" {
 
   site_config {
     always_on = true
-    application_stack {
-      go = "1.18"
-    }
   }
 }
