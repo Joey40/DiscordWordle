@@ -23,7 +23,7 @@ variables:
   - name: webApp
     value: WordleBotApp
   - name: buildOutput
-    value: $(System.DefaultWorkingDirectory)/buildOutput/Build-$(Build.BuildNumber).go
+    value: $(System.DefaultWorkingDirectory)/buildOutput/Build-$(Build.BuildNumber).zip
 
 steps: 
 - task: GoTool@0
