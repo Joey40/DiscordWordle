@@ -15,7 +15,7 @@ variables:
   - name: serviceConnection
     value: WordleBot
   - name: outFile
-    value: $(System.StageName).$(Build.BuildNumber).tfplan
+    value: PlanOutput-$(Build.BuildNumber).tfplan
   - name: terraformDir
     value: $(System.DefaultWorkingDirectory)/terraform
 
