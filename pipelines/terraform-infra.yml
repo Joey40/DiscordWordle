@@ -12,6 +12,8 @@ pool:
 variables:
   - name: terraformVersion
     value: 1.3.6
+  - name: serviceConnection
+    value: WordleBot
 
 stages:
   - stage: Plan
@@ -26,5 +28,7 @@ stages:
          - task: AzureCLI@2
            displayName: Terraform init
            inputs:
+            azureSubscription: ${{ variables.serviceConnection }}
+            scriptType: bash
             inlineScript: |
               terraform init -input=false
