@@ -119,12 +119,12 @@ stages:
              displayName: Download Plan File
              inputs:
                buildType: 'current'
-               targetPath: ${{ variables.outFile }}
+               targetPath: ${{ variables.terraformDir }}/${{ variables.outFile }}
            
            - task: Bash@3
              displayName: Terraform Apply
              inputs:
-               workingDirectory: ${{ variables.terraformDir }}/${{ variables.terraformDir }}
+               workingDirectory: ${{ variables.terraformDir }}
                targetType: 'inline'
                script: |
                 terraform apply "${{ variables.outFile }}"
