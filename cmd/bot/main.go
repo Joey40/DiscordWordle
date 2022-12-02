@@ -15,6 +15,7 @@ import (
 	"strconv"
 	"strings"
 	"syscall"
+	"net/http"
 )
 
 // Variables used for command line parameters
@@ -65,6 +66,10 @@ func init() {
 }
 
 func main() {
+	// Let the web know we're working
+	http.HandleFunc("/", HelloServer)
+    	http.ListenAndServe(":8080", nil)
+	
 	// Create a new Discord session using the provided bot token.
 	dg, err := discordgo.New("Bot " + Token)
 	if err != nil {
@@ -88,6 +93,7 @@ func main() {
 
 	// Cleanly close down the Discord session.
 	_ = dg.Close()
+	
 }
 
 // This function will be called (due to AddHandler above) every time a new
@@ -293,4 +299,8 @@ func reactToMessage(s *discordgo.Session, m *discordgo.MessageCreate, reactionEm
 			log.Error().Err(err).Str("server_id", m.GuildID).Str("content", m.Content).Str("author", m.Author.ID).Str("reaction", reactionEmoji).Msg("Error reacting")
 		}
 	}
+}
+
+func HelloServer(w http.ResponseWriter, r *http.Request) {
+    fmt.Fprintf(w, "Hello, %s. WordleBot is up and running!", r.URL.Path[1:])
 }
