@@ -122,6 +122,14 @@ stages:
                targetPath: ${{ variables.terraformDir }}
            
            - task: Bash@3
+             displayName: test ls
+             inputs:
+               workingDirectory: ${{ variables.terraformDir }}
+               targetType: 'inline'
+               script: |
+                ls
+           
+           - task: Bash@3
              displayName: Terraform Apply
              inputs:
                workingDirectory: ${{ variables.terraformDir }}
