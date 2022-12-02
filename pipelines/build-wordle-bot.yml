@@ -69,14 +69,6 @@ steps:
 #- task: PublishBuildArtifacts@1
 #  inputs:
 #     artifactName: WordleBot
-
-- task: Bash@3
-  displayName: ls
-  inputs:
-   workingDirectory: '$(System.DefaultWorkingDirectory)/buildOutput'
-   targetType: 'inline'
-   script: |
-     ls
      
 - task: AzureRmWebAppDeployment@4
   inputs:
@@ -84,7 +76,7 @@ steps:
     azureSubscription: ${{ variables.serviceConnection }}
     appType: 'webAppLinux'
     WebAppName: ${{ variables.webApp }}
-    RuntimeStack: "GO|1.19"
+    RuntimeStack: "go|${{ variables.goVersion }}"
     packageForLinux: ${{ variables.buildPackage }}
     
 #- task: AzureWebApp@1
