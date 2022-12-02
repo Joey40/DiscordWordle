@@ -4,11 +4,13 @@
 # https://aka.ms/yaml
 
 trigger:
-- main
-paths:
-  include:
-    - 'pipelines/terraform-infra.yml'
-    - 'terraform/'
+  branches:
+    include:
+      - main
+  paths:
+    include:
+      - 'pipelines/terraform-infra.yml'
+      - 'terraform/*'
 
 pool:
   vmImage: ubuntu-latest
