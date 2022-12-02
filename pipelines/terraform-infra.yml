@@ -16,14 +16,14 @@ variables:
 stages:
   - stage: Plan
     jobs:
-    - job: Plan
-      steps: 
-       - task: TerraformInstaller@0
-          displayName: Terraform - install v${{ variables.terraformVersion }}
-          inputs:
-            terraformVersion: ${{ variables.terraformVersion }}
+      - job: Plan
+        steps: 
+         - task: TerraformInstaller@0
+           displayName: Terraform - install v${{ variables.terraformVersion }}
+           inputs:
+             terraformVersion: ${{ variables.terraformVersion }}
 
-       - task: AzureCLI@2
+         - task: AzureCLI@2
            displayName: Terraform init
            script: |
-            terraform init -input=false
+             terraform init -input=false
