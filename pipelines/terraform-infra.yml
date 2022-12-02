@@ -127,12 +127,17 @@ stages:
                targetPath: ${{ variables.terraformDir }}
            
            - task: Bash@3
-             displayName: test ls
+             displayName: Terraform Init
              inputs:
-               workingDirectory: ${{ variables.terraformDir }}/TerraformPlan.TerraformPlan
+               workingDirectory: ${{ variables.terraformDir }}
                targetType: 'inline'
                script: |
-                ls
+                terraform init -input=false
+             env:
+               ARM_SUBSCRIPTION_ID:  $(ARM_SUBSCRIPTION_ID)
+               ARM_CLIENT_ID:        $(ARM_CLIENT_ID)
+               ARM_CLIENT_SECRET:    $(ARM_CLIENT_SECRET)
+               ARM_TENANT_ID:        $(ARM_TENANT_ID)
            
            - task: Bash@3
              displayName: Terraform Apply
