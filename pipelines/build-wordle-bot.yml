@@ -58,6 +58,14 @@ steps:
   inputs:
      artifactName: WordleBot
 
+ - task: Bash@3
+   displayName: ls
+   inputs:
+     workingDirectory: '$(Build.ArtifactStagingDirectory)'
+     targetType: 'inline'
+     script: |
+       ls
+
 - task: AzureWebApp@1
   displayName: Publish App
   inputs:
