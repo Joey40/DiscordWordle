@@ -124,7 +124,7 @@ stages:
            - task: Bash@3
              displayName: test ls
              inputs:
-               workingDirectory: ${{ variables.terraformDir }}
+               workingDirectory: ${{ variables.terraformDir }}/TerraformPlan.TerraformPlan
                targetType: 'inline'
                script: |
                 ls
