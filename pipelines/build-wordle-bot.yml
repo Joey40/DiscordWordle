@@ -62,18 +62,18 @@ steps:
     archiveFile: '${{ variables.buildPackage }}'
     replaceExistingArchive: true
 
-- task: CopyFiles@2
-  inputs:
-    TargetFolder: '$(System.DefaultWorkingDirectory)/cmd/bot'
+#- task: CopyFiles@2
+#  inputs:
+#    TargetFolder: '$(System.DefaultWorkingDirectory)/cmd/bot'
     
-- task: PublishBuildArtifacts@1
-  inputs:
-     artifactName: WordleBot
+#- task: PublishBuildArtifacts@1
+#  inputs:
+#     artifactName: WordleBot
 
 - task: Bash@3
   displayName: ls
   inputs:
-   workingDirectory: '${{ variables.buildOutput }}'
+   workingDirectory: '$(System.DefaultWorkingDirectory)/buildOutput'
    targetType: 'inline'
    script: |
      ls
