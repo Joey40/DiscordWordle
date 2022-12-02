@@ -1,20 +1,13 @@
-resource "azurerm_postgresql_server" "wordle-psql" {
-  name                = "wordle-psql"
-  location            = azurerm_resource_group.WordleDiscordBot.location
-  resource_group_name = azurerm_resource_group.WordleDiscordBot.name
+resource "azurerm_postgresql_flexible_server" "wordle-psql" {
+  name                   = "wordle-psql"
+  resource_group_name    = azurerm_resource_group.WordleDiscordBot.name
+  location               = azurerm_resource_group.WordleDiscordBot.location
+  version                = "14"
+  delegated_subnet_id    = azurerm_subnet.WordlePSQLSub.id
+  administrator_login    = "psqladmin"
+  administrator_password = "invalidpwd"
 
-  administrator_login          = "psqladmin"
-  administrator_login_password = "invalidpwd"
+  storage_mb = 32768
 
-  sku_name   = "B_Gen5_1"
-  version    = "11"
-  storage_mb = 5120
-
-  backup_retention_days        = 7
-  geo_redundant_backup_enabled = false
-  auto_grow_enabled            = false
-
-  public_network_access_enabled    = false
-  ssl_enforcement_enabled          = false
-  ssl_minimal_tls_version_enforced = "TLSEnforcementDisabled"
+  sku_name   = "B_Standard_B1ms"
 }
