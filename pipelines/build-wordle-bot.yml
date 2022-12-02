@@ -49,7 +49,7 @@ steps:
   inputs:
     command: 'build'
     workingDirectory: '$(System.DefaultWorkingDirectory)/cmd/bot'
-    arguments: '*.go -o "${{ variables.buildOutput }}"'
+    arguments: '-o "${{ variables.buildOutput }}"'
 
 #- task: Go@0
 #  displayName: Go Test
