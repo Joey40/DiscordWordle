@@ -1,0 +1,28 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  - name: terraformVersion
+    value: 1.3.6
+
+stages:
+  - stage: Plan
+    
+    steps:
+     - task: TerraformInstaller@0
+        displayName: Terraform - install v${{ variables.terraformVersion }}
+        inputs:
+          terraformVersion: ${{ variables.terraformVersion }}
+          
+     - task: AzureCLI@2
+         displayName: Terraform init
+         script: |
+          terraform init -input=false
