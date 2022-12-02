@@ -77,7 +77,7 @@ stages:
              displayName: Upload Plan File
              inputs:
                publishLocation: 'pipeline'
-               targetPath: ${{ variables.terraformDir }}\${{ variables.outFile }}
+               targetPath: ${{ variables.terraformDir }}/${{ variables.outFile }}
                
   - stage: Manual_Approval
     displayName: Manual Approval
@@ -124,7 +124,7 @@ stages:
            - task: Bash@3
              displayName: Terraform Apply
              inputs:
-               workingDirectory: ${{ variables.terraformDir }}\${{ variables.terraformDir }}
+               workingDirectory: ${{ variables.terraformDir }}/${{ variables.terraformDir }}
                targetType: 'inline'
                script: |
                 terraform apply "${{ variables.outFile }}"
