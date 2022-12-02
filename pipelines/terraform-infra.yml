@@ -75,7 +75,8 @@ stages:
     jobs:
       - job: Manual_Approval
         steps: 
-          - task: ManualIntervention@8
+          - task: ManualValidation@0
+            timeoutInMinutes: 1440 # task times out in 1 day
             inputs:
               instructions: "Review the terraform plan output before approving the apply stage."
               onTimeout: 'reject'
