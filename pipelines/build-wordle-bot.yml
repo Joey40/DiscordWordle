@@ -26,6 +26,10 @@ variables:
     value: $(System.DefaultWorkingDirectory)/buildOutput/Build
   - name: buildPackage
     value: $(System.DefaultWorkingDirectory)/buildOutput/Build-$(Build.BuildNumber).zip
+  - name: GOOS
+    value: "linux"
+  - name: GOARCH
+    value: "amd64"
 
 steps: 
 - task: GoTool@0
