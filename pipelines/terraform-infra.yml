@@ -20,11 +20,11 @@ variables:
     value: $(System.DefaultWorkingDirectory)/terraform
 
 stages:
-  - stage: Plan
+  - stage: Terraform Plan
     jobs:
-      - job: Plan
+      - job: Terraform Plan
         steps: 
-        
+
            - task: AzureCLI@2
              displayName: az login
              inputs:
@@ -65,6 +65,48 @@ stages:
                targetType: 'inline'
                script: |
                 terraform plan -out "${{ variables.outFile }}"
+             env:
+               ARM_SUBSCRIPTION_ID:  $(ARM_SUBSCRIPTION_ID)
+               ARM_CLIENT_ID:        $(ARM_CLIENT_ID)
+               ARM_CLIENT_SECRET:    $(ARM_CLIENT_SECRET)
+               ARM_TENANT_ID:        $(ARM_TENANT_ID)
+               
+  - stage: Manual Approval
+    jobs:
+      - job: Manual Approval
+        steps: 
+          - task: ManualIntervention@8
+            inputs:
+              instructions: "Review the terraform plan output before approving the apply stage."
+              onTimeout: 'reject'
+              
+  - stage: Terraform Apply
+    jobs:
+      - job: Terraform Apply
+        steps: 
+
+           - task: AzureCLI@2
+             displayName: az login
+             inputs:
+               azureSubscription: ${{ variables.serviceConnection }}
+               scriptType: bash
+               scriptLocation: inlineScript
+               addSpnToEnvironment: true
+               inlineScript: |
+                 set -eu  # fail on error
+                 subscriptionId=$(az account show --query id -o tsv)
+                 echo "##vso[task.setvariable variable=ARM_CLIENT_ID]$servicePrincipalId"
+                 echo "##vso[task.setvariable variable=ARM_CLIENT_SECRET;issecret=true]$servicePrincipalKey"
+                 echo "##vso[task.setvariable variable=ARM_SUBSCRIPTION_ID]$subscriptionId"
+                 echo "##vso[task.setvariable variable=ARM_TENANT_ID]$tenantId"
+                 
+           - task: Bash@3
+             displayName: Terraform plan
+             inputs:
+               workingDirectory: ${{ variables.terraformDir }}
+               targetType: 'inline'
+               script: |
+                terraform apply "${{ variables.outFile }}"
              env:
                ARM_SUBSCRIPTION_ID:  $(ARM_SUBSCRIPTION_ID)
                ARM_CLIENT_ID:        $(ARM_CLIENT_ID)
