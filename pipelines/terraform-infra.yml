@@ -119,7 +119,7 @@ stages:
              displayName: Download Plan File
              inputs:
                buildType: 'current'
-               targetPath: ${{ variables.terraformDir }}/${{ variables.outFile }}
+               targetPath: ${{ variables.terraformDir }}
            
            - task: Bash@3
              displayName: Terraform Apply
