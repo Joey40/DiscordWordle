@@ -5,9 +5,8 @@ trigger:
   paths:
     include:
       - '*'
-      - 'pipelines/build-wordle-bot.yml/
     exclude:
-      - 'pipelines/*'
+      - 'pipelines/terraform-infra.yml'
       - 'terraform/*'
 
 pool:
