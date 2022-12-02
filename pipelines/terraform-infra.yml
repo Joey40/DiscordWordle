@@ -30,5 +30,6 @@ stages:
            inputs:
             azureSubscription: ${{ variables.serviceConnection }}
             scriptType: bash
+            scriptLocation: inlineScript
             inlineScript: |
               terraform init -input=false
