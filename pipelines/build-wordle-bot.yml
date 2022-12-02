@@ -23,7 +23,7 @@ variables:
   - name: webApp
     value: WordleBotApp
   - name: buildOutput
-    value: $(System.DefaultWorkingDirectory)/buildOutput/Build.go
+    value: $(System.DefaultWorkingDirectory)/buildOutput/Build
   - name: buildPackage
     value: $(System.DefaultWorkingDirectory)/buildOutput/Build-$(Build.BuildNumber).zip
 
@@ -45,7 +45,7 @@ steps:
   inputs:
     command: 'build'
     workingDirectory: '$(System.DefaultWorkingDirectory)/cmd/bot'
-    arguments: '-o "${{ variables.buildOutput }}"'
+    arguments: '*.go -o "${{ variables.buildOutput }}"'
 
 #- task: Go@0
 #  displayName: Go Test
