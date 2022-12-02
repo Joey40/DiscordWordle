@@ -21,8 +21,10 @@ variables:
 
 stages:
   - stage: Terraform_Plan
+    displayName: Terraform Plan
     jobs:
       - job: Terraform_Plan
+        displayName: Terraform Plan
         steps: 
 
            - task: AzureCLI@2
@@ -72,8 +74,10 @@ stages:
                ARM_TENANT_ID:        $(ARM_TENANT_ID)
                
   - stage: Manual_Approval
+    displayName: Manual Approval
     jobs:
       - job: Manual_Approval
+        displayName: Manual Approval
         timeoutInMinutes: 4320 # job times out in 3 days
         pool: server  
         steps: 
@@ -84,8 +88,10 @@ stages:
               onTimeout: 'reject'
               
   - stage: Terraform_Apply
+    displayName: Terraform Apply
     jobs:
       - job: Terraform_Apply
+        displayName: Terraform Apply
         steps: 
 
            - task: AzureCLI@2
