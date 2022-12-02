@@ -101,7 +101,7 @@ stages:
         steps: 
 
            - task: AzureCLI@2
-             displayName: az login
+             displayName: AZ Login
              inputs:
                azureSubscription: ${{ variables.serviceConnection }}
                scriptType: bash
@@ -135,7 +135,7 @@ stages:
                workingDirectory: ${{ variables.terraformDir }}
                targetType: 'inline'
                script: |
-                terraform apply "${{ variables.outFile }}"
+                terraform apply "./TerraformPlan.TerraformPlan/${{ variables.outFile }}"
              env:
                ARM_SUBSCRIPTION_ID:  $(ARM_SUBSCRIPTION_ID)
                ARM_CLIENT_ID:        $(ARM_CLIENT_ID)
