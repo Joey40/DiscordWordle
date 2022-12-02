@@ -6,7 +6,7 @@ resource "azurerm_app_service_plan" "WordleBotASP" {
   reserved            = true
 
   sku {
-    tier = "Dev/Test"
+    tier = "Basic"
     size = "B1"
   }
 }
