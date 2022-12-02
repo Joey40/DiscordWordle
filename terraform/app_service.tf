@@ -15,4 +15,9 @@ resource "azurerm_linux_web_app" "WordleBotApp" {
   site_config {
     always_on = true
   }
+  
+  app_settings {
+    DATABASE_URL = "postgres://wordle:wordle@${azurerm_postgresql_flexible_server.wordle-psql.fqdn}:5432/wordle?sslmode=disable"
+  }
+  
 }
