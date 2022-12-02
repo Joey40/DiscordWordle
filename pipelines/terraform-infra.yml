@@ -48,25 +48,25 @@ stages:
            - task: Bash@3
              displayName: Terraform init
              inputs:
-              workingDirectory: ${{ variables.terraformDir }}
-              targetType: 'inline'
-              script: |
+               workingDirectory: ${{ variables.terraformDir }}
+               targetType: 'inline'
+               script: |
                 terraform init -input=false
-              env:
-                ARM_SUBSCRIPTION_ID:  $(ARM_SUBSCRIPTION_ID)
-                ARM_CLIENT_ID:        $(ARM_CLIENT_ID)
-                ARM_CLIENT_SECRET:    $(ARM_CLIENT_SECRET)
-                ARM_TENANT_ID:        $(ARM_TENANT_ID)
+             env:
+               ARM_SUBSCRIPTION_ID:  $(ARM_SUBSCRIPTION_ID)
+               ARM_CLIENT_ID:        $(ARM_CLIENT_ID)
+               ARM_CLIENT_SECRET:    $(ARM_CLIENT_SECRET)
+               ARM_TENANT_ID:        $(ARM_TENANT_ID)
 
            - task: Bash@3
              displayName: Terraform plan
              inputs:
-              workingDirectory: ${{ variables.terraformDir }}
-              targetType: 'inline'
-              script: |
+               workingDirectory: ${{ variables.terraformDir }}
+               targetType: 'inline'
+               script: |
                 terraform plan -out "${{ variables.outFile }}"
-              env:
-                ARM_SUBSCRIPTION_ID:  $(ARM_SUBSCRIPTION_ID)
-                ARM_CLIENT_ID:        $(ARM_CLIENT_ID)
-                ARM_CLIENT_SECRET:    $(ARM_CLIENT_SECRET)
-                ARM_TENANT_ID:        $(ARM_TENANT_ID)
+             env:
+               ARM_SUBSCRIPTION_ID:  $(ARM_SUBSCRIPTION_ID)
+               ARM_CLIENT_ID:        $(ARM_CLIENT_ID)
+               ARM_CLIENT_SECRET:    $(ARM_CLIENT_SECRET)
+               ARM_TENANT_ID:        $(ARM_TENANT_ID)
