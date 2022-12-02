@@ -5,6 +5,7 @@ resource "azurerm_postgresql_flexible_server" "wordle-psql" {
   version                = "14"
   administrator_login    = "psqladmin"
   administrator_password = "invalidpwd"
+  zone                   = "1"
 
   storage_mb = 32768
 
