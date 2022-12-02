@@ -16,7 +16,7 @@ variables:
 stages:
   - stage: Plan
     jobs:
-    -job: Plan
+    - job: Plan
       steps: 
        - task: TerraformInstaller@0
           displayName: Terraform - install v${{ variables.terraformVersion }}
