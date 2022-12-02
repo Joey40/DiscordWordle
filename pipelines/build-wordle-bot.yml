@@ -14,25 +14,36 @@ trigger:
 
 pool:
    vmImage: 'ubuntu-latest'
-   
+
+variables:
+  - name: goVersion
+    value: 1.19
+  - name: serviceConnection
+    value: WordleBot
+  - name: webApp
+    value: WordleBotApp
+
 steps: 
 - task: GoTool@0
   displayName: Install Go
   inputs:
-    version: '1.19'
+    version: ${{ variables.goVersion }}
     
 - task: Go@0
+  displayName: Go Get
   inputs:
     command: 'get'
     arguments: '-d'
     workingDirectory: '$(System.DefaultWorkingDirectory)/cmd/bot'
  
 - task: Go@0
+  displayName: Go Build
   inputs:
     command: 'build'
     workingDirectory: '$(System.DefaultWorkingDirectory)/cmd/bot'
 
 - task: Go@0
+  displayName: Go Test
   inputs:
     command: 'test'
     arguments: '-v'
@@ -46,3 +57,11 @@ steps:
 - task: PublishBuildArtifacts@1
   inputs:
      artifactName: WordleBot
+
+- task: AzureWebApp@1
+  displayName: Publish App
+  inputs:
+    azureSubscription: ${{ variables.serviceConnection }}
+    appType: 'webAppLinux'
+    appName: ${{ variables.webApp }}
+    package: '$(Build.ArtifactStagingDirectory)'
