@@ -16,6 +16,8 @@ variables:
     value: WordleBot
   - name: outFile
     value: $(System.StageName).$(Build.BuildNumber).tfplan
+  - name: terraformDir
+    value: $(System.DefaultWorkingDirectory)/terraform
 
 stages:
   - stage: Plan
@@ -33,6 +35,7 @@ stages:
             azureSubscription: ${{ variables.serviceConnection }}
             scriptType: bash
             scriptLocation: inlineScript
+            workingDirectory: ${{ variables.terraformDir }}
             inlineScript: |
               terraform init -input=false
               
@@ -42,5 +45,6 @@ stages:
             azureSubscription: ${{ variables.serviceConnection }}
             scriptType: bash
             scriptLocation: inlineScript
+            workingDirectory: ${{ variables.terraformDir }}
             inlineScript: |
               terraform plan -out "${{ variables.outFile }}"
