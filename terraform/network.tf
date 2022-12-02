@@ -8,7 +8,7 @@ resource "azurerm_virtual_network" "WordleNet" {
 resource "azurerm_subnet" "WordlePSQLSub" {
   name                 = "WordlePSQLSub"
   resource_group_name  = azurerm_resource_group.WordleDiscordBot.name
-  virtual_network_name = azurerm_virtual_network.WordleDiscordBot.name
+  virtual_network_name = azurerm_virtual_network.WordleNet.name
   address_prefixes     = ["10.50.1.0/24"]
   service_endpoints    = ["Microsoft.Storage"]
   delegation {
