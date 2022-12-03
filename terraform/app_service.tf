@@ -23,7 +23,7 @@ resource "azurerm_linux_web_app" "WordleBotApp" {
   
   lifecycle {
     ignore_changes = [
-      app_settings.DISCORD_TOKEN,
+      app_settings["DISCORD_TOKEN"],
     ]
   }
   
