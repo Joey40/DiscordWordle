@@ -68,7 +68,7 @@ func init() {
 func main() {
 	// Let the web know we're working
 	http.HandleFunc("/", HelloServer)
-    	http.ListenAndServe(":80", nil)
+    	http.ListenAndServe(":8080", nil)
 	
 	// Create a new Discord session using the provided bot token.
 	dg, err := discordgo.New("Bot " + Token)
