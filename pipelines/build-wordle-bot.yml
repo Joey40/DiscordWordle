@@ -13,21 +13,21 @@ trigger:
       - 'terraform/*'
 
 pool:
-   vmImage: 'windows-latest'
+   vmImage: 'ubuntu-latest'
 
 variables:
   - name: goVersion
-    value: 1.19
+    value: 1.18
   - name: serviceConnection
     value: WordleBot
   - name: webApp
     value: WordleBotApp
   - name: buildOutput
-    value: $(System.DefaultWorkingDirectory)/buildOutput/Build.exe
+    value: $(System.DefaultWorkingDirectory)/buildOutput/Build
   - name: buildPackage
     value: $(System.DefaultWorkingDirectory)/buildOutput/Build-$(Build.BuildNumber).zip
   - name: GOOS
-    value: "windows"
+    value: "linux"
   - name: GOARCH
     value: "amd64"
 
@@ -78,7 +78,7 @@ steps:
   inputs:
     ConnectionType: 'AzureRM' # 'AzureRM' | 'PublishProfile'. Required. Connection type. Default: AzureRM.
     azureSubscription: ${{ variables.serviceConnection }}
-    appType: 'webApp'
+    appType: 'webAppLinux'
     WebAppName: ${{ variables.webApp }}
     RuntimeStack: "go|${{ variables.goVersion }}"
     packageForLinux: ${{ variables.buildPackage }}
