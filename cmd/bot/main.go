@@ -302,6 +302,6 @@ func reactToMessage(s *discordgo.Session, m *discordgo.MessageCreate, reactionEm
 }
 
 func HelloServer(w http.ResponseWriter, r *http.Request) {
-    fmt.Fprintf(w, "Hello, %s. WordleBot is up and running!", r.URL.Path[1:])
+    fmt.Fprintf(w, "Hello, WordleBot is up and running!", r.URL.Path[1:])
     log.Info().Msg("Web request received, I'm up and running.")
 }
