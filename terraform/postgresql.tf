@@ -3,8 +3,8 @@ resource "azurerm_postgresql_flexible_server" "wordle-psql" {
   resource_group_name    = azurerm_resource_group.WordleDiscordBot.name
   location               = azurerm_resource_group.WordleDiscordBot.location
   version                = "14"
-  administrator_login    = "psqladmin"
-  administrator_password = "invalidpwd"
+  administrator_login    = "wordle"
+  administrator_password = "wordle"
   zone                   = "2"
 
   storage_mb = 32768
