@@ -12,10 +12,9 @@ resource "azurerm_postgresql_flexible_server" "wordle-psql" {
   sku_name   = "B_Standard_B1ms"
 }
 
-resource "azurerm_postgresql_database" "wordle-psql-db" {
-  name                = "wordle"
-  resource_group_name = azurerm_resource_group.WordleDiscordBot.name
-  server_name         = azurerm_postgresql_server.wordle-psql.name
-  charset             = "UTF8"
-  collation           = "English_United States.1252"
+resource "azurerm_postgresql_flexible_server_database" "wordle-psql-db" {
+  name      = "wordle"
+  server_id = azurerm_postgresql_flexible_server.wordle-psql.id
+  collation = "en_US.utf8"
+  charset   = "utf8"
 }
