@@ -22,7 +22,7 @@ resource "azurerm_postgresql_flexible_server_database" "wordle-psql-db" {
 resource "azurerm_postgresql_flexible_server_firewall_rule" "worlde-psql-fw" {
   for_each = toset(azurerm_linux_web_app.WordleBotApp.outbound_ip_address_list)
   
-  name             = "Allow-BotWebApp-${each.key}"
+  name             = "Allow-BotWebApp-${reaplce(each.key,'.','-')}"
   server_id        = azurerm_postgresql_flexible_server.wordle-psql.id
   start_ip_address = each.key
   end_ip_address   = each.key
